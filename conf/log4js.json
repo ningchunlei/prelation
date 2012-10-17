@@ -1,0 +1,15 @@
+{
+    "appenders": [
+        { "type": "console" },
+        {
+            "category": "prelation",
+            "type": "dateFile",
+            "filename": "log/prelation.log",
+            "pattern": "yyyy-MM-dd"
+        }
+    ],
+
+    "levels": {
+        "prelation":  "info"
+    }
+}
