@@ -458,15 +458,168 @@ PRelationIFace_cancelFollow_result.prototype.write = function(output) {
   return;
 };
 
-var PRelationIFace_addFans_args = function(args) {
+var PRelationIFace_cancelFans_args = function(args) {
   this.uid = null;
   this.fansId = null;
+  this.type = null;
   if (args) {
     if (args.uid !== undefined) {
       this.uid = args.uid;
     }
     if (args.fansId !== undefined) {
       this.fansId = args.fansId;
+    }
+    if (args.type !== undefined) {
+      this.type = args.type;
+    }
+  }
+};
+PRelationIFace_cancelFans_args.prototype = {};
+PRelationIFace_cancelFans_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.uid = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.fansId = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.type = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+PRelationIFace_cancelFans_args.prototype.write = function(output) {
+  output.writeStructBegin('PRelationIFace_cancelFans_args');
+  if (this.uid) {
+    output.writeFieldBegin('uid', Thrift.Type.STRING, 1);
+    output.writeString(this.uid);
+    output.writeFieldEnd();
+  }
+  if (this.fansId) {
+    output.writeFieldBegin('fansId', Thrift.Type.STRING, 2);
+    output.writeString(this.fansId);
+    output.writeFieldEnd();
+  }
+  if (this.type) {
+    output.writeFieldBegin('type', Thrift.Type.I32, 3);
+    output.writeI32(this.type);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var PRelationIFace_cancelFans_result = function(args) {
+  this.success = null;
+  this.error = null;
+  if (args) {
+    if (args.success !== undefined) {
+      this.success = args.success;
+    }
+    if (args.error !== undefined) {
+      this.error = args.error;
+    }
+  }
+};
+PRelationIFace_cancelFans_result.prototype = {};
+PRelationIFace_cancelFans_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.I32) {
+        this.success = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new Exception_ttypes.EngineException();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+PRelationIFace_cancelFans_result.prototype.write = function(output) {
+  output.writeStructBegin('PRelationIFace_cancelFans_result');
+  if (this.success) {
+    output.writeFieldBegin('success', Thrift.Type.I32, 0);
+    output.writeI32(this.success);
+    output.writeFieldEnd();
+  }
+  if (this.error) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var PRelationIFace_addFans_args = function(args) {
+  this.uid = null;
+  this.fansId = null;
+  this.type = null;
+  if (args) {
+    if (args.uid !== undefined) {
+      this.uid = args.uid;
+    }
+    if (args.fansId !== undefined) {
+      this.fansId = args.fansId;
+    }
+    if (args.type !== undefined) {
+      this.type = args.type;
     }
   }
 };
@@ -498,6 +651,13 @@ PRelationIFace_addFans_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.type = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -517,6 +677,11 @@ PRelationIFace_addFans_args.prototype.write = function(output) {
   if (this.fansId) {
     output.writeFieldBegin('fansId', Thrift.Type.STRING, 2);
     output.writeString(this.fansId);
+    output.writeFieldEnd();
+  }
+  if (this.type) {
+    output.writeFieldBegin('type', Thrift.Type.I32, 3);
+    output.writeI32(this.type);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -595,6 +760,7 @@ var PRelationIFace_getFollow_args = function(args) {
   this.uid = null;
   this.start = null;
   this.len = null;
+  this.type = null;
   if (args) {
     if (args.uid !== undefined) {
       this.uid = args.uid;
@@ -604,6 +770,9 @@ var PRelationIFace_getFollow_args = function(args) {
     }
     if (args.len !== undefined) {
       this.len = args.len;
+    }
+    if (args.type !== undefined) {
+      this.type = args.type;
     }
   }
 };
@@ -642,6 +811,13 @@ PRelationIFace_getFollow_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.I32) {
+        this.type = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -666,6 +842,11 @@ PRelationIFace_getFollow_args.prototype.write = function(output) {
   if (this.len) {
     output.writeFieldBegin('len', Thrift.Type.I32, 3);
     output.writeI32(this.len);
+    output.writeFieldEnd();
+  }
+  if (this.type) {
+    output.writeFieldBegin('type', Thrift.Type.I32, 4);
+    output.writeI32(this.type);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -766,6 +947,7 @@ var PRelationIFace_getFans_args = function(args) {
   this.uid = null;
   this.start = null;
   this.len = null;
+  this.type = null;
   if (args) {
     if (args.uid !== undefined) {
       this.uid = args.uid;
@@ -775,6 +957,9 @@ var PRelationIFace_getFans_args = function(args) {
     }
     if (args.len !== undefined) {
       this.len = args.len;
+    }
+    if (args.type !== undefined) {
+      this.type = args.type;
     }
   }
 };
@@ -813,6 +998,13 @@ PRelationIFace_getFans_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 4:
+      if (ftype == Thrift.Type.I32) {
+        this.type = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -837,6 +1029,11 @@ PRelationIFace_getFans_args.prototype.write = function(output) {
   if (this.len) {
     output.writeFieldBegin('len', Thrift.Type.I32, 3);
     output.writeI32(this.len);
+    output.writeFieldEnd();
+  }
+  if (this.type) {
+    output.writeFieldBegin('type', Thrift.Type.I32, 4);
+    output.writeI32(this.type);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1057,18 +1254,58 @@ PRelationIFaceClient.prototype.recv_cancelFollow = function(input,mtype,rseqid) 
   }
   return callback('cancelFollow failed: unknown result');
 };
-PRelationIFaceClient.prototype.addFans = function(uid, fansId, callback) {
+PRelationIFaceClient.prototype.cancelFans = function(uid, fansId, type, callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
-  this.send_addFans(uid, fansId);
+  this.send_cancelFans(uid, fansId, type);
 };
 
-PRelationIFaceClient.prototype.send_addFans = function(uid, fansId) {
+PRelationIFaceClient.prototype.send_cancelFans = function(uid, fansId, type) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('cancelFans', Thrift.MessageType.CALL, this.seqid);
+  var args = new PRelationIFace_cancelFans_args();
+  args.uid = uid;
+  args.fansId = fansId;
+  args.type = type;
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+PRelationIFaceClient.prototype.recv_cancelFans = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new PRelationIFace_cancelFans_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('cancelFans failed: unknown result');
+};
+PRelationIFaceClient.prototype.addFans = function(uid, fansId, type, callback) {
+  this.seqid += 1;
+  this._reqs[this.seqid] = callback;
+  this.send_addFans(uid, fansId, type);
+};
+
+PRelationIFaceClient.prototype.send_addFans = function(uid, fansId, type) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('addFans', Thrift.MessageType.CALL, this.seqid);
   var args = new PRelationIFace_addFans_args();
   args.uid = uid;
   args.fansId = fansId;
+  args.type = type;
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
@@ -1095,19 +1332,20 @@ PRelationIFaceClient.prototype.recv_addFans = function(input,mtype,rseqid) {
   }
   return callback('addFans failed: unknown result');
 };
-PRelationIFaceClient.prototype.getFollow = function(uid, start, len, callback) {
+PRelationIFaceClient.prototype.getFollow = function(uid, start, len, type, callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
-  this.send_getFollow(uid, start, len);
+  this.send_getFollow(uid, start, len, type);
 };
 
-PRelationIFaceClient.prototype.send_getFollow = function(uid, start, len) {
+PRelationIFaceClient.prototype.send_getFollow = function(uid, start, len, type) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('getFollow', Thrift.MessageType.CALL, this.seqid);
   var args = new PRelationIFace_getFollow_args();
   args.uid = uid;
   args.start = start;
   args.len = len;
+  args.type = type;
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
@@ -1134,19 +1372,20 @@ PRelationIFaceClient.prototype.recv_getFollow = function(input,mtype,rseqid) {
   }
   return callback('getFollow failed: unknown result');
 };
-PRelationIFaceClient.prototype.getFans = function(uid, start, len, callback) {
+PRelationIFaceClient.prototype.getFans = function(uid, start, len, type, callback) {
   this.seqid += 1;
   this._reqs[this.seqid] = callback;
-  this.send_getFans(uid, start, len);
+  this.send_getFans(uid, start, len, type);
 };
 
-PRelationIFaceClient.prototype.send_getFans = function(uid, start, len) {
+PRelationIFaceClient.prototype.send_getFans = function(uid, start, len, type) {
   var output = new this.pClass(this.output);
   output.writeMessageBegin('getFans', Thrift.MessageType.CALL, this.seqid);
   var args = new PRelationIFace_getFans_args();
   args.uid = uid;
   args.start = start;
   args.len = len;
+  args.type = type;
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
@@ -1233,12 +1472,26 @@ PRelationIFaceProcessor.prototype.process_cancelFollow = function(seqid, input, 
   })
 }
 
+PRelationIFaceProcessor.prototype.process_cancelFans = function(seqid, input, output) {
+  var args = new PRelationIFace_cancelFans_args();
+  args.read(input);
+  input.readMessageEnd();
+  var result = new PRelationIFace_cancelFans_result();
+  this._handler.cancelFans(args.uid, args.fansId, args.type, function (success) {
+    result.success = success;
+    output.writeMessageBegin("cancelFans", Thrift.MessageType.REPLY, seqid);
+    result.write(output);
+    output.writeMessageEnd();
+    output.flush();
+  })
+}
+
 PRelationIFaceProcessor.prototype.process_addFans = function(seqid, input, output) {
   var args = new PRelationIFace_addFans_args();
   args.read(input);
   input.readMessageEnd();
   var result = new PRelationIFace_addFans_result();
-  this._handler.addFans(args.uid, args.fansId, function (success) {
+  this._handler.addFans(args.uid, args.fansId, args.type, function (success) {
     result.success = success;
     output.writeMessageBegin("addFans", Thrift.MessageType.REPLY, seqid);
     result.write(output);
@@ -1252,7 +1505,7 @@ PRelationIFaceProcessor.prototype.process_getFollow = function(seqid, input, out
   args.read(input);
   input.readMessageEnd();
   var result = new PRelationIFace_getFollow_result();
-  this._handler.getFollow(args.uid, args.start, args.len, function (success) {
+  this._handler.getFollow(args.uid, args.start, args.len, args.type, function (success) {
     result.success = success;
     output.writeMessageBegin("getFollow", Thrift.MessageType.REPLY, seqid);
     result.write(output);
@@ -1266,7 +1519,7 @@ PRelationIFaceProcessor.prototype.process_getFans = function(seqid, input, outpu
   args.read(input);
   input.readMessageEnd();
   var result = new PRelationIFace_getFans_result();
-  this._handler.getFans(args.uid, args.start, args.len, function (success) {
+  this._handler.getFans(args.uid, args.start, args.len, args.type, function (success) {
     result.success = success;
     output.writeMessageBegin("getFans", Thrift.MessageType.REPLY, seqid);
     result.write(output);

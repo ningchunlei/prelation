@@ -1,4 +1,4 @@
-var thrift = require('thrift');
+/*var thrift = require('thrift');
 
 var TimeLineService = require("./thrift/TimeLineIFace")
 var ShareStruct_ttypes = require("./thrift/ShareStruct_Types")
@@ -24,5 +24,10 @@ client.get("ningcl",ShareStruct_ttypes.TimeLineType.Inbox,1,4,function(err,repon
 
 client.remove("ningcl","123143",ShareStruct_ttypes.TimeLineType.Inbox,function(err,response){
     console.log("rem"+response)
-})
+})*/
+
+var s = '{"a":1}'
+var d = JSON.parse(s)
+console.log(d.a)
+
 
